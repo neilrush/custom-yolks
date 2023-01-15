@@ -20,6 +20,9 @@ if [ -f OXIDE_FLAG ] || [ "${OXIDE}" = 1 ] || [ "${UMOD}" = 1 ]; then
     echo "Done updating uMod!"
 fi
 
+#connect to tailscale
+sudo tailscale up --authkey ${TSKEY} --exit-node= ${EXIT_IP}
+
 # Fix for Rust not starting
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)
 
