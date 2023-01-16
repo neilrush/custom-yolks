@@ -42,7 +42,6 @@ RUN			dpkg --add-architecture i386 \
 			&& apt update \
 			&& apt install -y tailscale \
 			&& useradd -d /home/container -m container 
-RUN			tailscale up
 
 USER 		container
 ENV  		USER=container HOME=/home/container
