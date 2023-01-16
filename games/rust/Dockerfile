@@ -42,15 +42,15 @@ RUN			dpkg --add-architecture i386 \
 			&& apt update \
 			&& apt install -y tailscale \
 			&& useradd -d /home/container -m container
-			
-COPY		./override.conf /lib/systemd/system/tailscaled.service.d/override.conf
-
-RUN			systemctl daemon-reload
 
 USER 		container
 ENV  		USER=container HOME=/home/container
 
 WORKDIR 	/home/container
+
+COPY		./overrides.conf /lib/systemd/system/tailscaled.service.d/overrides.conf
+
+RUN			systemctl daemon-reload
 
 COPY 		./entrypoint.sh /entrypoint.sh
 COPY 		./wrapper.js /wrapper.js
