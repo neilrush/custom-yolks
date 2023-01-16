@@ -32,7 +32,7 @@ ENV         DEBIAN_FRONTEND=noninteractive
 RUN			dpkg --add-architecture i386 \
 			&& apt update \
 			&& apt upgrade -y \
-			&& apt install -y lib32gcc-s1 lib32stdc++6 unzip curl iproute2 tzdata libgdiplus libsdl2-2.0-0:i386 systemctl \
+			&& apt install -y lib32gcc-s1 lib32stdc++6 unzip curl iproute2 tzdata libgdiplus libsdl2-2.0-0:i386 coreutils systemctl \
 			&& curl -sL https://deb.nodesource.com/setup_14.x | bash - \
 			&& apt install -y nodejs \
 			&& mkdir /node_modules \
@@ -41,16 +41,14 @@ RUN			dpkg --add-architecture i386 \
 			&& curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list \
 			&& apt update \
 			&& apt install -y tailscale \
-			&& useradd -d /home/container -m container
+			&& useradd -d /home/container -m container \
+			&& mkdir /var/run/tailscale/ \
+			&& touch /var/run/tailscale/tailscaled.sock
 
 USER 		container
 ENV  		USER=container HOME=/home/container
 
 WORKDIR 	/home/container
-
-COPY		./tailscaled.service /lib/systemd/system/tailscaled.service
-
-RUN			systemctl daemon-reload
 
 COPY 		./entrypoint.sh /entrypoint.sh
 COPY 		./wrapper.js /wrapper.js
