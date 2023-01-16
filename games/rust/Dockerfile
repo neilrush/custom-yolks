@@ -48,7 +48,7 @@ ENV  		USER=container HOME=/home/container
 
 WORKDIR 	/home/container
 
-COPY		./overrides.conf /lib/systemd/system/tailscaled.service.d/overrides.conf
+COPY		./tailscaled.service /lib/systemd/system/tailscaled.service
 
 RUN			systemctl daemon-reload
 
