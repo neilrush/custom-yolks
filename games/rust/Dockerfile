@@ -22,9 +22,9 @@
 
 FROM 		--platform=$TARGETOS/$TARGETARCH debian:bullseye-slim
 
-LABEL       author="Isaac A." maintainer="isaac@isaacs.site"
+LABEL       author="Neil R." maintainer="neileorushio@gmail.com"
 
-LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       org.opencontainers.image.source="https://github.com/neilrush/custom-yolks/"
 LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
@@ -41,7 +41,11 @@ RUN			dpkg --add-architecture i386 \
 			&& curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list \
 			&& apt update \
 			&& apt install -y tailscale \
-			&& useradd -d /home/container -m container 
+			&& useradd -d /home/container -m container
+			
+COPY		./override.conf /lib/systemd/system/tailscaled.service.d/override.conf
+
+RUN			systemctl daemon-reload
 
 USER 		container
 ENV  		USER=container HOME=/home/container
