@@ -41,6 +41,7 @@ RUN			dpkg --add-architecture i386 \
 			&& curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list \
 			&& apt update \
 			&& apt install -y tailscale \
+			&& systemctl start tailscaled \
 			&& useradd -d /home/container -m container
 
 USER 		container
