@@ -35,4 +35,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/neilrush/games:${{ matrix.game }}
+            ghcr.io/${{ github.repository }}/${{ matrix.game }}:latest
