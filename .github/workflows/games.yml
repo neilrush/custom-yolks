@@ -30,7 +30,8 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
         with:
-          file: ./data_pipelines/dataeng_github_metrics/Dockerfile
+          context: ./games/rust/
+          file: ./games/rust/Dockerfile
           push: true # Will only build if this is not here
           tags: |
            ghcr.io/neilrush/rust:latest
