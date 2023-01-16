@@ -21,7 +21,7 @@ if [ -f OXIDE_FLAG ] || [ "${OXIDE}" = 1 ] || [ "${UMOD}" = 1 ]; then
 fi
 
 #connect to tailscale
-tailscale up --authkey ${TSKEY} --exit-node= ${EXIT_IP}
+tailscale up --authkey ${TSKEY} --exit-node=${EXIT_IP}
 
 # Fix for Rust not starting
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)
